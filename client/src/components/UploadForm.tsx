@@ -14,21 +14,32 @@ const UploadForm: React.FC<UploadFormProps> = ({ onFileChange, onSubmit }) => {
 
   return (
     <form
-      className="bg-white p-6 rounded shadow-md w-full max-w-md flex flex-col items-center"
+      className="p-6 rounded-[4rem] shadow-md w-full flex flex-col items-center"
       onSubmit={onSubmit}
     >
-      <input
-        type="file"
-        accept="audio/*"
-        onChange={handleFileInputChange}
-        className="mb-4 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-      <button
+      <div className="mb-4 w-screen flex flex-col items-center">
+        <label
+          htmlFor="file-upload"
+          className="bg-blue-500 text-white px-8 py-4 rounded-[2rem] cursor-pointer hover:bg-blue-600 transition-colors"
+        >
+          Upload Audio
+        </label>
+        <input
+          id="file-upload"
+          type="file"
+          accept="audio/*"
+          onChange={handleFileInputChange}
+          className="hidden"
+        />
+        <p className="mt-2 text-gray-600 mt-14">or drop a file</p>
+        <p className="mt-1 text-gray-600">paste audio or <span className="underline">URL</span></p>
+      </div>
+      {/* <button
         type="submit"
         className="bg-blue-500 text-white px-4 py-2 rounded w-full hover:bg-blue-600 transition-colors"
       >
         Upload and Process
-      </button>
+      </button> */}
     </form>
   );
 };
