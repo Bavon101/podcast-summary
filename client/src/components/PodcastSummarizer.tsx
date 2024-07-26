@@ -31,6 +31,8 @@ const audioFiles = [
   },
 ];
 
+const getRandomElement = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
+
 const PodcastSummarizer = () => {
   const [state, setState] = useState<Podcast>({
     file: null,
@@ -47,9 +49,9 @@ const PodcastSummarizer = () => {
     setTimeout(() => {
       setState({
         file: file,
-        transcription: audioFiles[0].summary,
-        summary: audioFiles[1].summary,
-        highlights: audioFiles[2].summary,
+        transcription: getRandomElement(audioFiles).summary,
+        summary: getRandomElement(audioFiles).summary,
+        highlights: getRandomElement(audioFiles).summary,
       });
       setIsLoading(false);
     }, 2000); // Simulating a delay for the file processing
