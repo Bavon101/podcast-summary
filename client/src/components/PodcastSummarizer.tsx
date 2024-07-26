@@ -44,17 +44,34 @@ const PodcastSummarizer = () => {
 
   const handleFileChange = (file: File) => {
     setIsLoading(true);
-    const lorem =
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque faucibus, ante eget ultricies fermentum, dui lacus vulputate quam, ut tincidunt quam felis ac lectus. Praesent sollicitudin faucibus orci, sed sagittis justo posuere id. Suspendisse viverra dapibus lorem, a pretium massa pellentesque ut. Sed sed turpis nulla. Aenean sed nulla massa. Donec non lacus venenatis, sagittis ipsum hendrerit, scelerisque nisl. Ut ac odio ex. Nam pulvinar nulla ligula, in tempus enim condimentum in. Maecenas ullamcorper sed neque ut viverra. Cras convallis diam non luctus porta. Integer sapien neque, tincidunt a viverra at, aliquet at felis.";
-    setTimeout(() => {
-      setState({
-        file: file,
-        transcription: getRandomElement(audioFiles).summary,
-        summary: getRandomElement(audioFiles).summary,
-        highlights: getRandomElement(audioFiles).summary,
+
+    const form = new FormData();
+    form.append("audio", file);
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'User-Agent': 'insomnia/9.3.1'
+      },
+      body: form
+    };
+
+    fetch('http://34.121.52.188:8080/music', options)
+      .then(response => response.json())
+      .then(response => {
+        setState({
+          file: file,
+          transcription: response.transcription || getRandomElement(audioFiles).summary,
+          summary: response.summary || getRandomElement(audioFiles).summary,
+          highlights: response.highlights || getRandomElement(audioFiles).summary,
+        });
+        setIsLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        alert("An error occurred while processing the audio file. Please try again.");
+        setIsLoading(false);
       });
-      setIsLoading(false);
-    }, 2000); // Simulating a delay for the file processing
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
