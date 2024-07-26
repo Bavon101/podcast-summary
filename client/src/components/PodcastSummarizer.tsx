@@ -13,6 +13,24 @@ type Podcast = {
   highlights: string;
 };
 
+const audioFiles = [
+  {
+    title: "Batman: The Dark Knight Returns",
+    summary:
+      "In this audio file, we explore the story of Batman as he comes out of retirement to fight crime in Gotham City. Bruce Wayne, now older and burdened by past traumas, dons the cape and cowl once more to take on a new wave of criminals. The narrative delves into his psyche, examining the cost of being Batman and the toll it takes on him. He faces formidable foes, old and new, including the Joker and a corrupt government. Batman's return sparks a revolution, inspiring the citizens of Gotham to stand up against tyranny and injustice. The story is a powerful commentary on heroism, sacrifice, and the relentless pursuit of justice, even in the face of overwhelming odds.",
+  },
+  {
+    title: "Wonder Woman: The Amazon Warrior",
+    summary:
+      "This audio file recounts the epic tale of Wonder Woman, also known as Diana of Themyscira. Raised on a secluded island among Amazon warriors, Diana is trained in the art of combat from a young age.",
+  },
+  {
+    title: "Superman: Man of Steel",
+    summary:
+      "In this audio file, we follow the story of Superman, the last son of Krypton. Sent to Earth as a baby, Kal-El is raised by the Kent family in Smallville, Kansas, and grows up to become Clark Kent. As he discovers his superhuman abilities, he decides to use them to protect humanity. Superman's journey is one of self-discovery, as he struggles with his dual identity and the responsibilities that come with his powers. He faces challenges from powerful enemies like Lex Luthor and General Zod, but his unwavering sense of justice and compassion guide him. Superman's story is a testament to the power of hope, resilience, and the enduring spirit of heroism.",
+  },
+];
+
 const PodcastSummarizer = () => {
   const [state, setState] = useState<Podcast>({
     file: null,
@@ -29,9 +47,9 @@ const PodcastSummarizer = () => {
     setTimeout(() => {
       setState({
         file: file,
-        transcription: lorem,
-        summary: lorem,
-        highlights: lorem,
+        transcription: audioFiles[0].summary,
+        summary: audioFiles[1].summary,
+        highlights: audioFiles[2].summary,
       });
       setIsLoading(false);
     }, 2000); // Simulating a delay for the file processing
@@ -94,7 +112,10 @@ const PodcastSummarizer = () => {
             </div>
           </div>
           <div className="flex flex-col justify-end items-center w-6/12 h-[200px]">
-            <UploadForm onFileChange={handleFileChange} onSubmit={handleSubmit} />
+            <UploadForm
+              onFileChange={handleFileChange}
+              onSubmit={handleSubmit}
+            />
           </div>
         </div>
       )}
